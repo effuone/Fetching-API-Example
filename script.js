@@ -6,44 +6,55 @@ fetch("https://fakestoreapi.com/products")
 
 function createProduct(name, price, image, description) {
     //get container
-    var container = document.getElementById('main-container')
-
+    var containers = document.getElementsByClassName('wrapper bg-white')
+    var container = containers[0]
     //create new product
     var newProduct = document.createElement('div')
     newProduct.className = "product"
 
     //create new productName
     var productName = document.createElement('div')
+    var productNameText = document.createElement('h2')
+    productNameText.innerHTML = name;
     productName.className = "productName"
-    productName.appendChild(document.createTextNode(name))
+    productName.appendChild(productNameText)
     newProduct.appendChild(productName)
 
-    //create new imageClass
-    var imageClass = document.createElement('div')
-    imageClass.className = "productImage"
-    var imagesrc = document.createElement('img')
-    imagesrc.src = image;
-    imageClass.appendChild(imagesrc)
-    newProduct.appendChild(imageClass)
-
-    //create new priceTag 
-    var priceTag = document.createElement('div')
-    priceTag.className = 'priceTag'
-    priceTag.appendChild(document.createTextNode(price))
-    newProduct.appendChild(priceTag)
-
-    //create new description 
-    var productDescription = document.createElement('div')
-    productDescription.className = 'productDescription'
-    productDescription.appendChild(document.createTextNode(description))
-    newProduct.appendChild(productDescription)
+    //create new description block
+    var descriptionBlock = document.createElement('div')
+    descriptionBlock.className = "description"
+    var productImageBlock = document.createElement('div')
+    productImageBlock.className = "productImage"
+    var productImageImage = document.createElement('img')
+    productImageImage.src = image
+    productImageBlock.appendChild(productImageImage)
+    descriptionBlock.appendChild(productImageBlock)
+    var informationBlock = document.createElement('div')
+    informationBlock.className = "information"
+    var productDescriptionBlock = document.createElement('div')
+    productDescriptionBlock.className = "productDescription"
+    productDescriptionBlock.appendChild(document.createTextNode(description))
+    var priceTagBlock = document.createElement('div')
+    priceTagBlock.className = "priceTag"
+    var priceTextBlock = document.createElement('div')
+    priceTextBlock.className = "priceText"
+    priceTextBlock.innerHTML = price + ' $'
+    priceTagBlock.appendChild(priceTextBlock)
+    
+    
 
     //create basket button block
     var button = document.createElement('button')
     button.className= 'basketButtonBlock'
     button.type = 'button'
     button.appendChild(document.createTextNode('Add'))
-    newProduct.appendChild(button)
+
+    informationBlock.appendChild(productDescriptionBlock)
+    informationBlock.appendChild(priceTagBlock)
+    informationBlock.appendChild(button)
+
+    descriptionBlock.appendChild(informationBlock)
+    newProduct.appendChild(descriptionBlock)
 
     container.appendChild(newProduct);
 }
@@ -59,4 +70,10 @@ function render()
             element.description
         )
     }
+}
+
+if(document.readyState == 'complete')
+{
+    console.log(99999)
+    render()
 }
